@@ -3,12 +3,11 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-//Class representing the lettuces
-public class Lettuce extends Ingredients
+//Class representing the top buns
+public class TopBun extends Ingredients 
 {
 
-	
-    private String craft = "Lettuce.png";
+    private String craft = "BurgerTopBun.png";
 
     private int x;
     private int y;
@@ -24,9 +23,9 @@ public class Lettuce extends Ingredients
 
 
     // Same design as the bun
-    public Lettuce (int x, int y)
+    public TopBun (int x, int y)
     {
-	ImageIcon ii = new ImageIcon (this.getClass ().getResource ("Let.png"));
+	ImageIcon ii = new ImageIcon (this.getClass ().getResource ("BurgerTopBun.png"));
 	image = ii.getImage ();
 	width = image.getWidth (null);
 	height = image.getHeight (null);
@@ -35,21 +34,17 @@ public class Lettuce extends Ingredients
 	this.y = y;
     }
 
+
+    public int speed()
+	{
+		return 5;
+	}
+
     //Method to make it fall
     public void moveAlien ()
     {
-	if (fall == true)
-	{
-	    if (this.y > 700)
-	    {
-		this.y = getRandomY ();
-		this.x = getRandomX ();
-	    }
-	    this.y += 1;
-
-	}
+	super.moveAlien();
     }
-
 
     //Method to make it move after stacked
     public void move (int x)
@@ -58,8 +53,7 @@ public class Lettuce extends Ingredients
     }
 
 
-    //Acquires random y-coordinate for falling
-    public int getRandomY()
+    public  int getRandomY ()
     {
 	int result = (int) (Math.random () * 6000 + 1);
 	result = 0 - result;
@@ -68,7 +62,7 @@ public class Lettuce extends Ingredients
 
 
     //Acquires random x-coordinate for falling
-    public int getRandomX()
+    public int getRandomX ()
     {
 	int result = (int) (Math.random () * 700 + 1);
 	return result;
@@ -76,9 +70,9 @@ public class Lettuce extends Ingredients
 
 
     //Sets the fall boolean to false
-    public void stopFall ()
+    public void stopFall()
     {
-	this.fall = false;
+   this.fall = false;
     }
 
 
@@ -135,3 +129,4 @@ public class Lettuce extends Ingredients
 	return new Rectangle (x, y, width, height);
     }
 }
+

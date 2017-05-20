@@ -3,12 +3,11 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-//Class representing the lettuces
-public class Lettuce extends Ingredients
+//Class representing the pickles
+public class Pickle extends Ingredients
 {
 
-	
-    private String craft = "Lettuce.png";
+    private String craft = "Pickle.png";
 
     private int x;
     private int y;
@@ -24,9 +23,9 @@ public class Lettuce extends Ingredients
 
 
     // Same design as the bun
-    public Lettuce (int x, int y)
+    public Pickle (int x, int y)
     {
-	ImageIcon ii = new ImageIcon (this.getClass ().getResource ("Let.png"));
+	ImageIcon ii = new ImageIcon (this.getClass ().getResource ("Pic.png"));
 	image = ii.getImage ();
 	width = image.getWidth (null);
 	height = image.getHeight (null);
@@ -34,6 +33,7 @@ public class Lettuce extends Ingredients
 	this.x = x;
 	this.y = y;
     }
+
 
     //Method to make it fall
     public void moveAlien ()
@@ -59,7 +59,7 @@ public class Lettuce extends Ingredients
 
 
     //Acquires random y-coordinate for falling
-    public int getRandomY()
+    public  int getRandomY ()
     {
 	int result = (int) (Math.random () * 6000 + 1);
 	result = 0 - result;
@@ -68,7 +68,7 @@ public class Lettuce extends Ingredients
 
 
     //Acquires random x-coordinate for falling
-    public int getRandomX()
+    public  int getRandomX ()
     {
 	int result = (int) (Math.random () * 700 + 1);
 	return result;
