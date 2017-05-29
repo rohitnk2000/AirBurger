@@ -1,0 +1,185 @@
+package src;
+
+import java.awt.List;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileReader.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.text.html.HTMLDocument.Iterator;
+
+
+public class FileReaderAndWriter extends JFrame
+{
+    private static String username;
+    private Double oldScore;
+
+    private Map<Double, LinkedList<String>> users = new TreeMap<Double, LinkedList<String>>();
+
+    static AirBurger a;
+    
+    
+    public FileReaderAndWriter(String username){
+        this.username = username;
+    }
+
+
+//    public static void main( String[] args ) throws IOException
+//    {
+//        FileReaderAndWriter frw = new FileReaderAndWriter();
+//
+//        System.out.println( "Username:" );
+//        Scanner scan = new Scanner( System.in );
+//        username = scan.nextLine();
+//
+//        frw.read(
+//            "/Users/appx/Dropbox/workspaceAPCS/AirBurger1/src/Users.txt" );
+//        frw.login();
+//        try
+//        {
+//            a = new AirBurger();
+//        }
+//        catch ( Exception e )
+//        {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        frw.changeScore( a.cashEarned );
+//
+//        frw.write();
+//
+//    }
+
+
+    public void changeScore( double cash )
+    {
+        //System.out.println(oldScore + username + cash);
+                    
+        users.get( oldScore ).remove( username );
+
+               
+
+        putInMap( oldScore + cash, username );
+
+    }
+
+
+    public void putInMap( double d, String s )
+    {
+        if ( users.containsKey( d ) )
+        {
+            users.get( d ).add( s );
+        }
+        else
+        {
+            LinkedList<String> newList = new LinkedList<String>();
+            newList.add( s );
+            users.put( d, newList );
+        }
+
+    }
+
+
+    public void read( String fileName )
+    {
+
+        try
+        {
+            File file = new File( fileName );
+            Scanner scan = new Scanner( file );
+
+            String next;
+
+            while ( scan.hasNextLine() )
+            {
+
+                next = scan.nextLine();
+                if ( next.contains( ", " ) )
+                {
+
+                    String[] splitUser = next.split( ", " );
+                    putInMap( Double.parseDouble( splitUser[0] ), splitUser[1] );
+
+                }
+
+            }
+
+        }
+        catch ( Exception e )
+        {
+            System.out.println( e.getMessage() );
+            System.exit( 1 );
+
+        }
+    }
+
+
+    public void write()
+    {
+        try
+        {
+            FileWriter fw = new FileWriter(
+                "/Users/appx/Dropbox/workspaceAPCS/AirBurger1/src/Users.txt" );
+            BufferedWriter bw = new BufferedWriter( fw );
+            fw.write( "" );
+
+            for ( Double i : users.keySet() )
+            {
+
+                for ( String name : users.get( i ) )
+                {
+                    bw.write( i + ", " + name );
+                    bw.newLine();
+                }
+
+            }
+            if ( bw != null )
+                bw.close();
+        }
+        catch ( Exception e )
+        {
+            System.out.println( e.getMessage() );
+            System.exit( 1 );
+
+        }
+
+    }
+
+
+    public void login() throws IOException
+    {
+        boolean exists = false;
+
+        for ( Double i : users.keySet() )
+        {
+
+            for ( String name : users.get( i ) )
+            {
+                if ( name.equals( username ) )
+                {
+                    exists = true;
+                    oldScore = i;
+
+                }
+            }
+
+        }
+        if ( !exists )
+        {
+            oldScore = 0.0;
+            putInMap( 0, username );
+
+        }
+
+    }
+
+}
